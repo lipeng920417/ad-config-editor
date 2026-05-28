@@ -15,10 +15,7 @@
         </p>
       </div>
       <div class="header__actions">
-        <button id="btnLoadTemplate" class="btn btn--secondary">加载模板</button>
-        <button id="btnImport" class="btn btn--secondary">导入 JSON</button>
-        <button id="btnValidate" class="btn">校验</button>
-        <button id="btnDownload" class="btn btn--primary">下载 JSON</button>
+        <!-- 顶部按钮按需求移除 -->
       </div>
     </header>
 
@@ -89,21 +86,26 @@
       </section>
 
       <section class="card">
-        <h2>输出 / 导入</h2>
+        <h2>输出</h2>
         <div class="grid grid--2">
           <div>
             <div class="row row--space">
               <h3 class="h3">JSON 输出</h3>
-              <button id="btnCopy" class="btn btn--secondary">复制</button>
+              <div class="row">
+                <button id="btnCopy" class="btn btn--secondary">复制</button>
+                <button id="btnValidate" class="btn btn--secondary">校验</button>
+                <button id="btnDownload" class="btn btn--primary">下载 JSON</button>
+              </div>
             </div>
             <textarea id="output" class="textarea" spellcheck="false"></textarea>
           </div>
-          <div>
-            <div class="row row--space">
-              <h3 class="h3">导入 JSON</h3>
-              <button id="btnApplyImport" class="btn btn--secondary">应用导入</button>
+          <div class="muted" style="padding-top: 34px">
+            <div class="card" style="margin:0; box-shadow:none">
+              <h3 class="h3">说明</h3>
+              <p class="muted" style="margin: 8px 0 0">
+                右侧功能已精简：仅支持配置与导出，不提供导入 JSON。
+              </p>
             </div>
-            <textarea id="importText" class="textarea" placeholder="把 JSON 粘贴到这里" spellcheck="false"></textarea>
           </div>
         </div>
         <div id="messages" class="messages" aria-live="polite"></div>

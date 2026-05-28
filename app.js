@@ -272,34 +272,6 @@ function loadTemplate() {
   message("ok", "已加载模板");
 }
 
-function applyImport() {
-  const raw = $("importText").value.trim();
-  if (!raw) {
-    message("err", "导入区为空");
-    return;
-  }
-  let parsed;
-  try {
-    parsed = JSON.parse(raw);
-  } catch (e) {
-    message("err", "导入 JSON 解析失败，请检查格式");
-    return;
-  }
-  state = normalizeConfig(parsed);
-  setGlobalFields(state);
-  renderPositions(state.ad_positions_config);
-  updateOutput();
-  clearMessages();
-  message("ok", "已应用导入 JSON");
-}
-
-function importFromPrompt() {
-  const raw = window.prompt("粘贴 JSON 到这里：");
-  if (!raw) return;
-  $("importText").value = raw;
-  applyImport();
-}
-
 function copyOutput() {
   updateOutput();
   navigator.clipboard
@@ -312,16 +284,12 @@ function bindAutoUpdate() {
   document.addEventListener("input", (e) => {
     const t = e.target;
     if (t && (t.matches("input") || t.matches("select") || t.matches("textarea"))) {
-      if (t.id === "importText") return;
       updateOutput();
     }
   });
 }
 
 function main() {
-  $("btnLoadTemplate").addEventListener("click", loadTemplate);
-  $("btnImport").addEventListener("click", importFromPrompt);
-  $("btnApplyImport").addEventListener("click", applyImport);
   $("btnAddPosition").addEventListener("click", addPosition);
   $("btnSortByType").addEventListener("click", sortByType);
   $("btnDownload").addEventListener("click", downloadJson);
