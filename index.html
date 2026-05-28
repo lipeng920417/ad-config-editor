@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ads Config Editor</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__title">
+        <h1>Ads Config Editor</h1>
+        <p class="muted">
+          编辑 <code>default_ad_config.json</code> 并生成 JSON；然后你手动上传到 Firebase。
+        </p>
+      </div>
+      <div class="header__actions">
+        <button id="btnLoadTemplate" class="btn btn--secondary">加载模板</button>
+        <button id="btnImport" class="btn btn--secondary">导入 JSON</button>
+        <button id="btnValidate" class="btn">校验</button>
+        <button id="btnDownload" class="btn btn--primary">下载 JSON</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>全局配置</h2>
+        <div class="grid grid--3">
+          <label class="field">
+            <span class="field__label">ad_global_enabled</span>
+            <select id="ad_global_enabled" class="input">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">ad_daily_show_limit</span>
+            <input id="ad_daily_show_limit" class="input" type="number" min="0" step="1" />
+          </label>
+          <label class="field">
+            <span class="field__label">ad_same_feature_interval_seconds</span>
+            <input id="ad_same_feature_interval_seconds" class="input" type="number" min="0" step="1" />
+          </label>
+          <label class="field">
+            <span class="field__label">ad_timed_interstitial_interval_seconds</span>
+            <input id="ad_timed_interstitial_interval_seconds" class="input" type="number" min="0" step="1" />
+          </label>
+          <label class="field field--span2">
+            <span class="field__label">ad_user_segment_filter</span>
+            <input
+              id="ad_user_segment_filter"
+              class="input"
+              placeholder="留空表示 null；否则输入 JSON（如 [\"vip\",\"new\"]）"
+            />
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="row row--space">
+          <div>
+            <h2>广告位列表（ad_positions_config）</h2>
+            <p class="muted">可增删改。导出时会自动排序保持你当前列表顺序。</p>
+          </div>
+          <div class="row">
+            <button id="btnAddPosition" class="btn btn--secondary">新增广告位</button>
+            <button id="btnSortByType" class="btn btn--secondary">按 type 排序</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table" aria-label="ad positions table">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>ad_enable</th>
+                <th>ad_position_type</th>
+                <th>ad_position_id</th>
+                <th class="table__actions">操作</th>
+              </tr>
+            </thead>
+            <tbody id="positionsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>输出 / 导入</h2>
+        <div class="grid grid--2">
+          <div>
+            <div class="row row--space">
+              <h3 class="h3">JSON 输出</h3>
+              <button id="btnCopy" class="btn btn--secondary">复制</button>
+            </div>
+            <textarea id="output" class="textarea" spellcheck="false"></textarea>
+          </div>
+          <div>
+            <div class="row row--space">
+              <h3 class="h3">导入 JSON</h3>
+              <button id="btnApplyImport" class="btn btn--secondary">应用导入</button>
+            </div>
+            <textarea id="importText" class="textarea" placeholder="把 JSON 粘贴到这里" spellcheck="false"></textarea>
+          </div>
+        </div>
+        <div id="messages" class="messages" aria-live="polite"></div>
+      </section>
+
+      <footer class="footer muted">
+        <div>
+          部署：GitHub Pages（参考
+          <a href="https://docs.github.com/zh/pages/quickstart" target="_blank" rel="noreferrer"
+            >GitHub Pages 快速入门</a
+          >）
+        </div>
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
