@@ -5,6 +5,7 @@ const TEMPLATE = {
   ad_daily_show_limit: 10,
   ad_same_feature_interval_seconds: 300,
   ad_timed_interstitial_interval_seconds: 120,
+  startup_duration_seconds: 8,
   ad_positions_config: [
     { name: "开屏广告", ad_enable: true, ad_position_id: "ca-app-pub-9936612306041989/1708305700", ad_position_type: "start_splash" },
     { name: "首次插屏", ad_enable: true, ad_position_id: "ca-app-pub-9936612306041989/4351770594", ad_position_type: "first_interstitial" },
@@ -56,6 +57,7 @@ function setGlobalFields(cfg) {
   $("ad_global_enabled").value = String(Boolean(cfg.ad_global_enabled));
   $("ad_daily_show_limit").value = String(Number(cfg.ad_daily_show_limit ?? 0));
   $("ad_same_feature_interval_seconds").value = String(Number(cfg.ad_same_feature_interval_seconds ?? 0));
+  $("startup_duration_seconds").value = String(Number(cfg.startup_duration_seconds ?? 8));
   $("ad_timed_interstitial_interval_seconds").value = String(Number(cfg.ad_timed_interstitial_interval_seconds ?? 0));
   $("ad_user_segment_filter").value =
     cfg.ad_user_segment_filter == null ? "" : JSON.stringify(cfg.ad_user_segment_filter);
@@ -68,6 +70,7 @@ function getGlobalFields() {
     ad_user_segment_filter,
     ad_daily_show_limit: Number($("ad_daily_show_limit").value),
     ad_same_feature_interval_seconds: Number($("ad_same_feature_interval_seconds").value),
+    startup_duration_seconds: Number($("startup_duration_seconds").value),
     ad_timed_interstitial_interval_seconds: Number($("ad_timed_interstitial_interval_seconds").value),
   };
 }
@@ -213,6 +216,7 @@ function validate(cfg) {
   if (typeof cfg.ad_global_enabled !== "boolean") errors.push("ad_global_enabled 必须是 boolean");
   if (!Number.isFinite(cfg.ad_daily_show_limit)) errors.push("ad_daily_show_limit 必须是 number");
   if (!Number.isFinite(cfg.ad_same_feature_interval_seconds)) errors.push("ad_same_feature_interval_seconds 必须是 number");
+  if (!Number.isFinite(cfg.startup_duration_seconds)) errors.push("startup_duration_seconds 必须是 number");
   if (!Number.isFinite(cfg.ad_timed_interstitial_interval_seconds)) errors.push("ad_timed_interstitial_interval_seconds 必须是 number");
   if (!Array.isArray(cfg.ad_positions_config)) errors.push("ad_positions_config 必须是数组");
 
